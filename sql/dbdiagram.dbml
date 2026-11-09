@@ -1,0 +1,68 @@
+// Opsional: bisa di-paste langsung di dbdiagram.io (mode DBML).
+// Untuk tugas, gunakan Import > PostgreSQL lalu paste isi sql/schema.sql.
+
+Table admin {
+  id_admin integer [pk, increment]
+  nama varchar(100) [not null]
+  email varchar(100) [not null, unique]
+  password_hash varchar(255) [not null]
+  created_at timestamp [not null, default: `now()`]
+}
+
+Table admin_profile {
+  id_profil integer [pk, increment]
+  id_admin integer [not null, unique]
+  jabatan varchar(100)
+  no_hp varchar(20)
+  foto_url text
+  created_at timestamp [not null, default: `now()`]
+}
+
+Table kategori_potensi {
+  id_kategori integer [pk, increment]
+  nama_kategori varchar(100) [not null, unique]
+  deskripsi text
+  icon varchar(100)
+  created_at timestamp [not null, default: `now()`]
+}
+
+Table potensi_desa {
+  id_potensi integer [pk, increment]
+  id_kategori integer [not null]
+  id_admin integer [not null]
+  nama_potensi varchar(150) [not null]
+  deskripsi text
+  alamat text
+  latitude decimal(10,7)
+  longitude decimal(10,7)
+  kontak varchar(50)
+  status varchar(20) [not null, default: 'aktif']
+  created_at timestamp [not null, default: `now()`]
+  updated_at timestamp [not null, default: `now()`]
+}
+
+Table foto_potensi {
+  id_foto integer [pk, increment]
+  id_potensi integer [not null]
+  url_foto text [not null]
+  caption varchar(255)
+  created_at timestamp [not null, default: `now()`]
+}
+
+Table tag {
+  id_tag integer [pk, increment]
+  nama_tag varchar(50) [not null, unique]
+}
+
+Table potensi_tag {
+  id_potensi integer [not null]
+  id_tag integer [not null]
+  indexes { (id_potensi, id_tag) [pk] }
+}
+
+Ref: admin_profile.id_admin - admin.id_admin [delete: cascade]            // one to one
+Ref: potensi_desa.id_admin > admin.id_admin [delete: restrict]            // one to many
+Ref: potensi_desa.id_kategori > kategori_potensi.id_kategori [delete: restrict] // one to many
+Ref: foto_potensi.id_potensi > potensi_desa.id_potensi [delete: cascade]  // one to many
+Ref: potensi_tag.id_potensi > potensi_desa.id_potensi [delete: cascade]   // many to many
+Ref: potensi_tag.id_tag > tag.id_tag [delete: cascade]                    // many to many

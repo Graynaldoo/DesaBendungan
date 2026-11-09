@@ -1,0 +1,20 @@
+{
+  "name": "backend-desa-bendungan",
+  "version": "1.0.0",
+  "description": "REST API Express.js + PostgreSQL untuk Sistem Informasi Potensi Desa Bendungan",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "pg": "^8.11.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

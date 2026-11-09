@@ -1,0 +1,57 @@
+{
+  "info": {
+    "name": "REST API Potensi Desa Bendungan",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000" },
+    { "key": "id", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "1. POST - Buat potensi baru",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"id_kategori\": 1,\n  \"id_admin\": 1,\n  \"nama_potensi\": \"Contoh Potensi Baru\",\n  \"deskripsi\": \"Data uji dari Postman (bukan data asli).\",\n  \"alamat\": \"Desa Bendungan, Kec. Gondang, Kab. Tulungagung\",\n  \"latitude\": null,\n  \"longitude\": null,\n  \"kontak\": null,\n  \"status\": \"aktif\",\n  \"tag_ids\": [1, 4]\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/potensi", "host": ["{{base_url}}"], "path": ["api", "potensi"] }
+      }
+    },
+    {
+      "name": "2. GET - Semua data",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/potensi", "host": ["{{base_url}}"], "path": ["api", "potensi"] }
+      }
+    },
+    {
+      "name": "3. GET - Berdasarkan ID",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{base_url}}/api/potensi/{{id}}", "host": ["{{base_url}}"], "path": ["api", "potensi", "{{id}}"] }
+      }
+    },
+    {
+      "name": "4. PUT - Update berdasarkan ID",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"nama_potensi\": \"Contoh Potensi (Diperbarui)\",\n  \"deskripsi\": \"Deskripsi sudah diperbarui lewat PUT.\",\n  \"status\": \"aktif\",\n  \"tag_ids\": [2, 3]\n}"
+        },
+        "url": { "raw": "{{base_url}}/api/potensi/{{id}}", "host": ["{{base_url}}"], "path": ["api", "potensi", "{{id}}"] }
+      }
+    },
+    {
+      "name": "5. DELETE - Hapus berdasarkan ID",
+      "request": {
+        "method": "DELETE",
+        "url": { "raw": "{{base_url}}/api/potensi/{{id}}", "host": ["{{base_url}}"], "path": ["api", "potensi", "{{id}}"] }
+      }
+    }
+  ]
+}
